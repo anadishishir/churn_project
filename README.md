@@ -63,6 +63,15 @@ python app.py
 Launch Frontend : 
 streamlit run frontend.py 
 
+Docker Deployment 
+This application can be packaged using Docker for consistent enviroments. 
+
+Build the image : 
+docker build -t customer-retention-app . 
+
+Run the container : 
+docker run -p 8000:8000 -p 8501:8501 customer-retention-app 
+
 Personal Learning Notes
 Through this project, I gained hands-on experience in:
 
