@@ -1,23 +1,31 @@
-from flask import Flask, request, jsonify 
+from fastapi import FastAPI, HTTPException 
+from pydantic import create_model 
 import joblib 
 import pandas as pd 
+import uvicorn  
+from typing import Dict, Any 
+ 
+model = joblib.load("model/churn_model.pkl") 
+features = model.feature_names_in_ 
+  
+input_fields = {f: (float, ...) for f in features} 
+ChurnInput = create_model('ChurnInput', **input_fields) 
 
-app = Flask(__name__) 
-model = joblib.load("churn_model.pkl") 
+app = FastAPI() 
 
-@app.route("/predict",
-           methods=["POST"]) 
-def predict(): 
-
-    data = request.get_json() 
-
-    input_df = pd.DataFrame([data]) 
-    prediction = model.predict(input_df)[0] 
-    probability = model.predict_proba(input_df)[0][1] 
-
-    return jsonify({"churn_prediction":int(prediction),
-                    "churn_probability":float(probability)
-                    }) 
-
-if __name__ == "__main__":
-    app.run(debug=True)    
+@app.get("/features") 
+def get_features() : 
+    return {"features": features.tolist()} 
+ 
+@app.post("/predict") 
+async def predict(data : Dict[str, Any]) : 
+    try : 
+        input_df = pd.DataFrame([data]) 
+        input_df = input_df[features]   
+        
+        prediction = int(model.predict(input_df)[0]) 
+        probability = float(model.predict_proba(input_df)[0][1]) 
+        
+        return {"churn_prediction" : prediction, "churn_probability" : probability} 
+    except Exception as e : 
+        raise HTTPException(status_code=400, detail=str(e)) 
