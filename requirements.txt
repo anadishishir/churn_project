@@ -1,4 +1,6 @@
-flask 
+fastapi 
+uvicorn 
+requests
 scikit-learn 
 pandas 
 numpy 
