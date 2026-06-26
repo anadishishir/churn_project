@@ -29,14 +29,6 @@ Model Selection: Evaluated multiple algorithms, including Logistic Regression, R
 3. Model Deployment (FasAPI and Streamlit)
 This application is designed to be deployed as two seperate services : the FastAPI backend and Streamlit Frontend. 
 
-Local Deployment : 
-To run the application locally for testing : 
-
-Initialize Enviroment : 
-python -m venv venv 
-source venv/bin/activate 
-pip install -r requirements.txt 
-
 Launch Backend : 
 python app.py 
 
@@ -60,11 +52,16 @@ churn_model.pkl: The saved production-ready model.
 requirements.txt: List of dependencies (numpy, pandas, sklearn, xgboost, flask, imblearn).
 
 How to Run
-Install dependencies: pip install -r requirements.txt
+Initialize Enviroment : 
+python -m venv venv 
+source venv/bin/activate 
+pip install -r requirements.txt 
 
-Run the Flask app: python app.py
+Launch Backend : 
+python app.py 
 
-Open your browser at http://127.0.0.1:5000 to test the prediction interface.
+Launch Frontend : 
+streamlit run frontend.py 
 
 Personal Learning Notes
 Through this project, I gained hands-on experience in:
