@@ -29,3 +29,13 @@ async def predict(data : Dict[str, Any]) :
         return {"churn_prediction" : prediction, "churn_probability" : probability} 
     except Exception as e : 
         raise HTTPException(status_code=400, detail=str(e)) 
+
+@app.get("/metadata") 
+def get_metadata() : 
+    ct = model.named_steps['preprocessor'] 
+    ohe = ct.named_transformers_['cat'] 
+
+    metadata = {} 
+    for name, cat in zip(ohe.feature_name_in_, ohe.categories_) : 
+        metadata[name] = cat.tolist() 
+    return metadata 
