@@ -32,7 +32,7 @@ async def predict(data : Dict[str, Any]) :
 
 @app.get("/metadata") 
 def get_metadata() : 
-    ct = model.named_steps['preprocessor'] 
+    ct = model.named_steps['preprocess'] 
     ohe = ct.named_transformers_['cat'] 
 
     metadata = {} 
