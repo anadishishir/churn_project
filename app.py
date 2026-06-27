@@ -13,7 +13,7 @@ input_fields = {f: (float, ...) for f in features}
 ChurnInput = create_model('ChurnInput', **input_fields) 
 
 def get_feature_types() : 
-    x_train = pd.read_csv("data/train.csv")[features]  
+    x_train = pd.read_csv("data/Telco-Customer-Churn.csv")[features]  
     return {f: x_train[f].dtype for f in features}  
 
 feature_types = get_feature_types() 
