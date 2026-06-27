@@ -36,6 +36,6 @@ def get_metadata() :
     ohe = ct.named_transformers_['cat'] 
 
     metadata = {} 
-    for name, cat in zip(ohe.feature_name_in_, ohe.categories_) : 
+    for name, cat in zip(ohe.feature_names_in_, ohe.categories_) : 
         metadata[name] = cat.tolist() 
     return metadata 
