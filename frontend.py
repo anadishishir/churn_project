@@ -7,10 +7,10 @@ st.title("Customer Retention Analytics System")
 @st.cache_data 
 def get_app_data() : 
     try : 
-        feat_res = requests.get("http://127.0.0.1:8000/features") 
+        feat_res = requests.get("https://customer-retention-analytics-system-api.onrender.com/features") 
         features = feat_res.json().get("features", []) 
 
-        meta_res = requests.get("http://127.0.0.1:8000/metadata") 
+        meta_res = requests.get("https://customer-retention-analytics-system-api.onrender.com/metadata") 
         metadata = meta_res.json() 
 
         return features, metadata 
@@ -40,7 +40,7 @@ with st.form("customer_retention_analytics_form") :
 
 if submitted : 
     try : 
-        res = requests.post("http://127.0.0.1:8000/predict", json=user_inputs) 
+        res = requests.post("https://customer-retention-analytics-system-api.onrender.com/predict", json=user_inputs) 
         if res.status_code == 200 : 
             data = res.json() 
             prediction = "Retained" if data['churn_prediction'] == 1 else "Not Retained" 
