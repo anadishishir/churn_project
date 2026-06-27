@@ -35,6 +35,10 @@ app.add_middleware(
     allow_headers=["*"], 
 ) 
 
+@app.get("/") 
+def read_root() : 
+    return {"message": "Customer Retention Analytics Prediction API is running. Go to /docs to see the endpoints."} 
+
 @app.get("/features") 
 def get_features() : 
     return {"features": features.tolist()} 
