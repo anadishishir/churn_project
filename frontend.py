@@ -33,8 +33,11 @@ def get_app_data() :
     
 features, metadata = get_app_data()  
 
+st.write("Features:", features) 
+st.write("Metadata:", metadata) 
+
 if not features : 
-    st.error("Backend is unreachable. Ensure 'python app.py' is running on port 8000.") 
+    st.error("Backend is unreachable.") 
     st.stop() 
 
 with st.form("customer_retention_analytics_form") : 
