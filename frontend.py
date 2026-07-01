@@ -7,17 +7,30 @@ st.title("Customer Retention Analytics System")
 @st.cache_data 
 def get_app_data() : 
     try : 
-        feat_res = requests.get("https://customer-retention-analytics-system-api.onrender.com/features") 
-        features = feat_res.json().get("features", []) 
+        feat_res = requests.get( 
+            "https://customer-retention-analytics-system-api.onrender.com/features", 
+            timeout=30 
+        ) 
+        feat_res.raise_for_status() 
+        features = feat_res.json()["features"] 
 
-        meta_res = requests.get("https://customer-retention-analytics-system-api.onrender.com/metadata") 
+        meta_res = requests.get( 
+            "https://customer-retention-analytics-system-api.onrender.com/metadata", 
+            timeout=30 
+        ) 
+        meta_res.raise_for_status() 
         metadata = meta_res.json() 
 
         return features, metadata 
-    
-    except Exception as e :  
-        return None, None  
 
+    except requests.exceptions.RequestException as e : 
+        st.exception(e) 
+        return None, None 
+
+    except Exception as e : 
+        st.exception(e) 
+        return None, None 
+    
 features, metadata = get_app_data()  
 
 if not features : 
