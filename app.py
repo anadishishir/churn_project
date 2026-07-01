@@ -46,7 +46,7 @@ def get_features() :
 @app.post("/predict") 
 async def predict(data : Dict[str, Any]) : 
     try : 
-        input_df = pd.DataFrame([data.dict()]) 
+        input_df = pd.DataFrame([data])  
         input_df = input_df[features] 
         
         prediction = int(model.predict(input_df)[0]) 
